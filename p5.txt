@@ -47,31 +47,31 @@ Los envíos RTP empiezan en el segundo 17.169770 (111) y el último envío es en
 7. Hasta la trama 45 se puede observar una secuencia de tramas del protocolo STUN.
  ** ¿Por qué crees que se hace uso de este protocolo en esta captura? Busca en la Wikipedia.
  ** ¿Estamos tras un NAT?
-Porque permite a clientes NAT encontrar su dirección IP pública.
-Sí, porque las IP's no son compatibles.
+Porque te indica si estás tras un NAT y el tipo de NAT que estás usando.
+Sí, porque ekiga te ve con una IP pública mientras que nosotros tenemos una IP privada.
 
 
 8. La trama 46 es la primera trama SIP. En un entorno como el de Internet, lo habitual es desconocer la dirección IP de la otra parte al realizar una llamada. Por eso, todo usuario registra su localización en un servidor Registrar. El Registrar guarda información sobre los usuarios en un servidor de localización que puede ser utilizado para localizar usuarios.
- ** ¿Qué dirección IP tiene el servidor Registrar? 83.36.48.212
+ ** ¿Qué dirección IP tiene el servidor Registrar? 86.64.162.35
  ** ¿A qué puerto (del servidor Registrar) se envían los paquetes SIP? 5060
  ** ¿Qué método SIP utiliza el UA para registrarse? REGISTER
- ** Además de REGISTER, ¿qué instrucciones SIP entiende el UA? SUBSCRIBE, INVITE, ACK, BYE.
+ ** Además de REGISTER, ¿qué instrucciones SIP entiende el UA? SUBSCRIBE, INVITE, ACK, BYE, OPTIONS, CANCEL, NOTIFY, REFER; MESSAGE.
 
 
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 9. Fijémonos en las tramas siguientes a la número 46:
- ** ¿Se registra con éxito en el primer intento?
- ** ¿Cómo sabemos si el registro se ha realizado correctamente o no?
- ** ¿Podrías identificar las diferencias entre el primer intento y el segundo de registro? (fíjate en el tamaño de los paquetes y mira a qué se debe el cambio)
- ** ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica las unidades.
+ ** ¿Se registra con éxito en el primer intento? No
+ ** ¿Cómo sabemos si el registro se ha realizado correctamente o no? Porque en el paquete 52 recibimos un "200 OK"
+ ** ¿Podrías identificar las diferencias entre el primer intento y el segundo de registro? (fíjate en el tamaño de los paquetes y mira a qué se debe el cambio) El tamaño de los paquetes cambia porque en el segundo intento se añade a la cabecera un campo llamado "Authorization" con la conversión del nonce.
+ ** ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica las unidades. 3600 segundos.
 
 
 10. Una vez registrados, podemos efectuar una llamada. Vamos a probar con el servicio de eco de Ekiga que nos permite comprobar si nos hemos conectado correctamente. El servicio de eco tiene la dirección sip:500@ekiga.net. Veamos el INVITE de cerca.
- ** ¿Puede verse el nombre del que efectúa la llamada, así como su dirección SIP?
+ ** ¿Puede verse el nombre del que efectúa la llamada, así como su dirección SIP? Sí, "gregorio Robles" sip:grex@ekiga.net
  ** ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
- ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
+ ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes? No, porque salta el mensaje "407 Proxy Authentication Required"
  ** ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto?
 
 
