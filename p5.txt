@@ -79,8 +79,8 @@ El tamaño es mayor, al igual que con los "register", debido a que inlcuye el no
  ** ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos? RTP, para enviar en tiempo real
  ** ¿Cuál es el tamaño de paquete de los mismos? 214bytes
  ** ¿Se utilizan bits de padding? No
- ** ¿Cuál es la periodicidad de los paquetes que se envían? 0.02 segundos
- ** ¿Cuántos bits/segundo estamos enviando? 64kbs
+ ** ¿Cuál es la periodicidad de los paquetes que se envían?Enviamos 80000 bytes, tenemos un TimeStamp de 160, haciendo regla de tres -> 1s -> 8000; xs -> 160; x = 0.02 segundos
+ ** ¿Cuántos bits/segundo estamos enviando? 64kbs. Nuestros mensajes envían 160 bytes y muestreamos a 8000 bytes
 
 
 
@@ -132,17 +132,20 @@ Captura de una sesión SIP
 Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.net. Tendrás que dar de alta una cuenta en www.ekiga.net con el navegador. Recuerda también que has de comenzar a capturar tramas antes de arrancar Ekiga para ver todo el proceso en el que participa SIP. Para realizar los siguientes ejercicios, deberás crearte una cuenta en ekiga.net y darte de alta la lanzar la aplicación.
 
 17. Observa las diferencias en el inicio de la conversación entre el entorno del laboratorio y el del ejercicio anterior:
- ** ¿Es necesario el uso de DNS y STUN? ¿Por qué?
+ ** ¿Es necesario el uso de DNS y STUN? ¿Por qué? No porque en la universidad tenemos
+una IP pública mientras que en la captura anterior la IP era privada.
  ** ¿Son diferentes el registro y la descripción de la sesión?
-
+Sí, en este caso necesitamos enviar la comprobación (nonce) para registrarnos.
 
 18. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
- ** ¿Cuántos flujos tenemos?
+ ** ¿Cuántos flujos tenemos? Hay dos flujos por usuario en la llamada (audio y vídeo)
  ** ¿Cuál es su periodicidad?
+Enviamos 80000 bytes, tenemos un TimeStamp de 320, haciendo regla de tres -> 1s -> 8000; xs -> 320; x = 0.04s
  ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter?
+Max Delta: 33.65 s Jitter Medio: 0.01 ms Jitter máx: 1.06 ms
  ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
- ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net?
-
+Sí, se puede reproducir con el reproductor dentro de RTP Streams
+ ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net? El servicio que ofrece es Music on Hold.
 
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
